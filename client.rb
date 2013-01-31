@@ -8,6 +8,6 @@ class Client
     @pets = {}
   end
   def to_s
-    "#{name} is #{age} year old and a #{gender} and has #{pets.count} animals named #{pets.keys}."
+    "#{name} is #{age} year old and a #{gender} and has #{pets.count} animals."
   end
 end

@@ -9,12 +9,15 @@ require_relative 'animal'
 # name = "Fido"
 # client.pets[name] = Animal.new('name','breed',age,'gender','toys')
 
-client_list, animal_list = {}, []
+client_list = {}
+animal_list = []
 
-# client_name = Client.new("Bob", 30, "m", ["Jack", "Jill"] )
-# client_name.pets["rover"] = Animal.new("Rover", "Beagle", 7, "m", ["Ball", "Bone"])
-# client_name.pets["fido"] = Animal.new("Fido", "Beagle", 7, "m", ["Ball", "Bone"])
-# client_list[client_name.name] = client_name
+client_name = Client.new("Bob", 30, "m", ["Jack", "Jill"] )
+client_name.pets["rover"] = Animal.new("Rover", "Beagle", 7, "m", ["Ball", "Bone"])
+client_name.pets["fido"] = Animal.new("Fido", "Beagle", 7, "m", ["Ball", "Bone"])
+client_list[client_name.name] = client_name
+animal_list[0] = "Dog1"
+animal_list[1] = "Dog2"
 
 print "What would you like to do: add a (c)lient, add a client's (p)et, see a (l)ist of animals
 available for adoption, (g)ive up own animal for adoption, a(d)opt an animal, see a list of clients in the (s)helter, or (q)uit? "
@@ -88,7 +91,8 @@ while response!='q'
       #remove animal object from its client
 
     when 'l'
-      puts "The animals currently in our shelter are: #{animal_list.split(",")}!"
+      puts "The animals currently in our shelter are: #{animal_list.join(', ')}!"
+      gets
 
     when 'g'
 
@@ -109,7 +113,7 @@ while response!='q'
       client_list[client_name.name].pets.delete(pets_name)
 
     when 'd'
-      puts "The animals currently in our shelter are: #{animal_list.split(",")}!"
+      puts "The animals currently in our shelter are: #{animal_list.join(", ")}!"
       print "Which one would you like to adopt? "
       pet_name = gets.chomp
 
@@ -118,11 +122,11 @@ while response!='q'
       #add animal to array of client's pets
 
     when 's'
-      puts "The clients who currently use our shelter are: #{client_list.split(",")}!"
+      puts "The clients who currently use our shelter are: #{client_list.keys.join(", ")}!"
 
 
   end
       print "What would you like to do: add a (c)lient, add a client's (p)et, see a (l)ist of animals
       available for adoption, (g)ive up own animal for adoption, a(d)opt an animal, see a list of clients in the (s)helter, or (q)uit? "
-    response = gets.chomp
+      response = gets.chomp
 end

@@ -9,7 +9,12 @@ require_relative 'animal'
 # name = "Fido"
 # client.pets[name] = Animal.new('name','breed',age,'gender','toys')
 
-client_list, animal_list = [], []
+client_list, animal_list = {}, []
+
+# client_name = Client.new("Bob", 30, "m", ["Jack", "Jill"] )
+# client_name.pets["rover"] = Animal.new("Rover", "Beagle", 7, "m", ["Ball", "Bone"])
+# client_name.pets["fido"] = Animal.new("Fido", "Beagle", 7, "m", ["Ball", "Bone"])
+# client_list[client_name.name] = client_name
 
 print "What would you like to do: add a (c)lient, add a client's (p)et, see a (l)ist of animals
 available for adoption, (g)ive up own animal for adoption, a(d)opt an animal, see a list of clients in the (s)helter, or (q)uit? "
@@ -31,17 +36,39 @@ while response!='q'
       print "What are the names of your kids? (separate with commas) "
       kids = gets.chomp.split(",")
 
-      print "What are the names of your pets? (separate with commas) "
-      pets = gets.chomp.split(",")
-
       #insert create new client function
-      client = Client.new(name, age, gender, kids)
+      client_name = Client.new(name, age, gender, kids)
 
-      #push new client object to client_list array
+      print "What are the names of your pets? (separate with commas) "
+      pets_names = gets.chomp.split(",")
+      pets_names.each do |i|
+
+        puts "For #{i}"
+
+          print "What is the breed? "
+          breed = gets.chomp
+
+          print "How old is the pet? "
+          age = gets.to_i
+
+          print "(m)ale or (f)emale ? "
+          gender = gets.chomp
+
+          print "What are the pet's favorite toys? (separate with commas) "
+          fav_toys = gets.chomp.split(",")
+
+          client_name.pets[i] = Animal.new(i, breed ,age, gender, fav_toys)
+
+      end
+
+      client_list << client_name.name
 
     when 'p'
       print "What is the pet's name? "
       name = gets.chomp
+
+      print "What is the breed? "
+      breed = gets.chomp
 
       print "How old is the pet? "
       age = gets.to_i
@@ -53,8 +80,10 @@ while response!='q'
       fav_toys = gets.chomp.split(",")
 
       #insert create new animal function
+      animal_name = Animal.new(name, breed ,age, gender, fav_toys)
 
       #push new animal object to animal_list array
+      animal_list << animal_name
 
       #remove animal object from its client
 
@@ -62,15 +91,22 @@ while response!='q'
       puts "The animals currently in our shelter are: #{animal_list.split(",")}!"
 
     when 'g'
+
       print "What is your name? "
-      client_name = gets.chomp
+      client_name.name = gets.chomp
 
       print "What is your pet's name? "
-      pet_name = gets.chomp
+      pets_name = gets.chomp
 
       #find animal by pet's name in client's pets hash
       #and delete from this.  then push to animal_list
       #array
+
+      binding.pry
+
+      current_pet = client_list[client_name.name].pets[pets_name]
+      animal_list << current_pet
+      client_list[client_name.name].pets.delete(pets_name)
 
     when 'd'
       puts "The animals currently in our shelter are: #{animal_list.split(",")}!"
@@ -84,10 +120,9 @@ while response!='q'
     when 's'
       puts "The clients who currently use our shelter are: #{client_list.split(",")}!"
 
-    print "What would you like to do: add a (c)lient, add a client's (p)et, see a (l)ist of animals
-available for adoption, (g)ive up own animal for adoption, a(d)opt an animal, see a list of clients in the (s)helter, or (q)uit? "
-    response = gets.chomp
 
   end
+      print "What would you like to do: add a (c)lient, add a client's (p)et, see a (l)ist of animals
+      available for adoption, (g)ive up own animal for adoption, a(d)opt an animal, see a list of clients in the (s)helter, or (q)uit? "
+    response = gets.chomp
 end
->>>>>>> 425e33bb6b00ae1402840ba510731e1f4aa0035c
